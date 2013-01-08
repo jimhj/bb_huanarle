@@ -1,0 +1,17 @@
+/ Templates
+%script#totals_list-template{ :type => 'text/template' }
+  %thead
+    %tr
+      %th #
+      %th 日期
+      %th 笔数
+      %th 总额
+      %th 备注
+  %tbody
+
+%script#total-template{ :type => 'text/template' }
+  %td <%= id %>
+  %td <%= date %>
+  %td <%= consumptions_count %>
+  %td <%= total_cost %>
+  %td <%= remarks %>

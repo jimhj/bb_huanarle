@@ -1,0 +1,56 @@
+.consumptions
+  
+  .content-container.clearfix
+    %p.pull-right
+      %button.btn.btn-success 新建消费记录
+    #table_view
+    #form_view.pull-left
+
+  .loading-view.clearfix{ :style => "display:none;" }
+    .progress.progress-striped.active
+      .bar.bar-info{ :style => 'width:100%;' }  
+
+/ Templates
+%script#totals_list-template{ :type => 'text/template' }
+  %thead
+    %tr
+      %th #
+      %th 日期
+      %th 笔数
+      %th 总额
+      %th 备注
+  %tbody
+
+%script#total-template{ :type => 'text/template' }
+  %td <%= id %>
+  %td <%= date %>
+  %td <%= consumptions_count %>
+  %td <%= total_cost %>
+  %td <%= remarks %>
+
+%script#cons_list-template{ :type => 'text/template' }
+  %table.table.table-striped.table-hover.pull-left
+    %thead
+      %tr
+        %th #
+        %th 时间
+        %th 金额
+        %th 备注
+    %tbody
+  .backto.pull-left
+    %button.btn.btn-primary 返回列表
+
+%script#con-template{ :type => 'text/template' }
+  %td <%= id %>
+  %td <%= created_at %>
+  %td <%= cost %>
+  %td <%= desc %>
+
+%script#new_con-template{ :type => 'text/template' }
+  .new_cons_form
+    %p
+      %input.span4{ :type => 'text' }
+  .backto.pull-left
+    %button.btn.btn-primary 返回列表
+
+

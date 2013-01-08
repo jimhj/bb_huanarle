@@ -1,0 +1,34 @@
+<div class="consumptions">
+  <div class="content-container clearfix">
+    <p class="pull-right">
+      <button class="btn btn-success">新建消费记录</button>
+    </p>
+    <table class="table table-striped table-hover pull-left">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>日期</th>
+          <th>总额</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%- 24.times do %>
+          <tr>
+            <td>1</td>
+            <td>2011-10-01</td>
+            <td>100.00</td>
+            <td>没有花全</td>
+          </tr>
+        <%- end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="loading-view">
+    <div class="progress progress-striped active">
+      <div class="bar bar-info" style="width: 100%;"></div>
+    </div>
+  </div>
+</div>
