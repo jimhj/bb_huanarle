@@ -1,4 +1,4 @@
 == Installation
-`bundle install`
 
-`rails s`
+  bundle install
+  rails s
