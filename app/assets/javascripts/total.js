@@ -39,7 +39,8 @@ var TotalsView = Backbone.Marionette.CompositeView.extend({
   },
 
   appendHtml: function (collectionView, itemView) {
-    $(itemView.el).find('td').css('cursor', 'pointer');
+    $(itemView.el).find('td').css('cursor', 'pointer')
+      .attr('title', '点击查看详细...');
     collectionView.$("tbody").append(itemView.el); 
   },
 
@@ -69,7 +70,9 @@ var TotalsView = Backbone.Marionette.CompositeView.extend({
 });
 
 
-var Consumption = Backbone.Model.extend({});
+var Consumption = Backbone.Model.extend({
+  url: '/consumptions'
+});
 var Consumptions = Backbone.Collection.extend({
   model: Consumption
 });
@@ -100,21 +103,57 @@ var ConsView = Backbone.Marionette.CompositeView.extend({
   },
 
   backToTotal: function () {
-    App.tableContainer.close();
-    var totals = new Totals();
-    totals.fetch();
-    var totalsView = new TotalsView({
-      collection: totals
-    });
-    App.tableContainer.show(totalsView);
+    App.vent.trigger('back:totals');
   } 
 
 });
 
 var NewConView = Backbone.Marionette.ItemView.extend({
-  template: "#new_con-template"
+  template: "#new_con-template",
+  events: {
+    'click button.btn-primary': 'backToTotal',
+    'click button.btn-danger': 'createConsumption'
+  },
+
+  backToTotal: function () {
+    App.vent.trigger('back:totals');
+  },
+
+  createConsumption: function () {
+    var con = new Consumption({
+      date: $('#conDate').val(),
+      cost: $('#conCost').val(),
+      desc: $('#conRemarks').val()
+    });
+
+    $('.loading-view').show();
+
+    con.save().error(function (data) {
+      var errors = $.parseJSON(data.responseText).errors;
+      $('.alert').find('p').remove();
+      for (err in errors) {
+        $('.alert').append('<p>'+ err + ': '+ errors[err] +'</p>');
+      }
+      $('.alert').show();
+      $('.loading-view').hide();
+    }).success(function () {
+      $('.loading-view').hide();
+      $('.alert-success').show();
+      App.vent.trigger('back:totals');
+    });
+  }
 });
 
+App.vent.on('back:totals', function () {
+  App.tableContainer.close();
+  App.formContainer.close();
+  var totals = new Totals();
+  totals.fetch();
+  var totalsView = new TotalsView({
+    collection: totals
+  });
+  App.tableContainer.show(totalsView);  
+});
 
 App.addInitializer(function(options){
   var totalsView = new TotalsView({
@@ -123,15 +162,12 @@ App.addInitializer(function(options){
   App.tableContainer.show(totalsView);
 });
 
-
-
 $(document).ready(function () {
   var totals = new Totals();  
   totals.fetch();
   App.start({ totals: totals });
 
   $('button').click(function () {
-    // $('#myModal').modal();
     var newConView = new NewConView();
     App.tableContainer.close();
     App.formContainer.show(newConView);

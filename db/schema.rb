@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20130106134748) do
   create_table "consumptions", :force => true do |t|
     t.string   "tags"
     t.string   "desc"
+    t.string   "date"
     t.decimal  "cost",       :precision => 10, :scale => 2, :default => 0.0
     t.integer  "total_id"
     t.datetime "created_at",                                                 :null => false

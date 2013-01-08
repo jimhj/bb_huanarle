@@ -8,7 +8,8 @@ class TotalsController < ApplicationController
   end
 
   def show
-    @consumptions = Total.find(params[:id]).consumptions
+    # @consumptions = Total.find(params[:id])
+    @consumptions = Consumption.find_all_by_total_id(params[:id])
     respond_with(@consumptions)
   end
 end

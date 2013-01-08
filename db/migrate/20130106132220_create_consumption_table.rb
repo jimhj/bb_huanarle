@@ -4,6 +4,7 @@ class CreateConsumptionTable < ActiveRecord::Migration
       t.integer :id
       t.string :tags
       t.string :desc
+      t.string :date
       t.decimal :cost, :default => 0.00, :precision => 10, :scale => 2
       t.references :total
       t.timestamps      

@@ -1,10 +1,10 @@
 .consumptions
   
   .content-container.clearfix
-    %p.pull-right
+    %p
       %button.btn.btn-success 新建消费记录
     #table_view
-    #form_view.pull-left
+    #form_view
 
   .loading-view.clearfix{ :style => "display:none;" }
     .progress.progress-striped.active
@@ -29,7 +29,7 @@
   %td <%= remarks %>
 
 %script#cons_list-template{ :type => 'text/template' }
-  %table.table.table-striped.table-hover.pull-left
+  %table.table.table-striped.table-hover
     %thead
       %tr
         %th #
@@ -37,7 +37,7 @@
         %th 金额
         %th 备注
     %tbody
-  .backto.pull-left
+  .backto
     %button.btn.btn-primary 返回列表
 
 %script#con-template{ :type => 'text/template' }
@@ -47,10 +47,27 @@
   %td <%= desc %>
 
 %script#new_con-template{ :type => 'text/template' }
-  .new_cons_form
-    %p
-      %input.span4{ :type => 'text' }
-  .backto.pull-left
+  .alert.alert-block.alert-error.fade.in.hide
+    %button.close{ :'data-dismiss' => 'alert', :type => 'button' } x
+
+  %form.form-horizontal.new_cons_form
+    .control-group
+      %label.control-label{ :for => 'date' } 填写日期
+      .controls
+        %input#conDate{ :type => 'text', :placeholder => "填写日期 如：2012-12-25" }
+
+    .control-group
+      %label.control-label{ :for => 'cost' } 消费金额
+      .controls
+        %input#conCost{ :type => 'text', :placeholder => "消费金额" }
+
+    .control-group
+      %label.control-label{ :for => 'remarks' } 备注
+      .controls
+        %input#conRemarks{ :type => 'text', :placeholder => "备注" }                
+
+  .backto
+    %button.btn.btn-danger 确定
     %button.btn.btn-primary 返回列表
 
 
