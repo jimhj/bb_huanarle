@@ -1,4 +1,7 @@
 == Installation
 
   bundle install
+  rake db:migrate
   rails s
+
+visit: http://localhost:3000
